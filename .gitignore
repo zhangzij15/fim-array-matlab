@@ -1,0 +1,17 @@
+/results/
+/local/
+/generateCDL.m
+/run_julia_temp.bat
+/patterns/*
+!/patterns/Synthetic_6p7GHz_H120_V24.txt
+
+*.mat
+*.csv
+*.png
+*.fig
+*.zip
+*.log
+*.asv
+*.m~
+.DS_Store
+Thumbs.db

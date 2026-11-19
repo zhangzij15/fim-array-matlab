@@ -1,0 +1,15 @@
+FIM_4Array_Compact_clean repository
+
+Root: 22 MATLAB files + .gitignore + AGENTS.md + README.md + VALIDATION_zh.md + FILE_MANIFEST.txt
+optional/: run_24rb_pca_no_spacing.m + README_PCA_no_spacing_zh.md
+patterns/: Synthetic_6p7GHz_H120_V24.txt
+Local only: results/, local/, generateCDL.m (historical Julia wrapper), portable ZIP, generated outputs.
+
+Main entry: run_24rb_four_array_comparison.m
+Short alias: run_fim_comparison.m
+Validation entries: run_fim_validation.m and run_fim_cdl_validation.m
+
+Main-entry array geometry: Nh=16, Nv=8 (128 elements), subarray.m=4, subarray.n=2.
+OFDM: 24 RB x 12 subcarriers, NFFT=512, 8.64 MHz.
+Default CDL generator: generateCDLBase.m and cdlProfileTable.m (base MATLAB).
+CDL-A through CDL-E ray-level frequency-domain model: expandCDLRays.m, cdlRayCoefficients.m, cdlPolarizationField.m, fimChannel.m.
