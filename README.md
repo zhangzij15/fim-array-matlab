@@ -145,6 +145,25 @@ results/four_array_24rb_lowcost/fim_comparison_时间戳/
 
 SYS/MLang等兼容环境的图形导出行为可能与标准MATLAB不同；首次运行建议先检查图形输出。
 
+### 角域 SINR 图
+
+在工程根目录运行 `run_fim_angular_sinr.m`。它从种子生成配对快照，分别优化 Fixed、PCA、方向图重构和 FIM，再导出四张独立 PNG、FIM 相对 Fixed 的差值图和四方案的俯仰剖面。图中的颜色表示指定全局角度上的宽带等效扫描 SINR，图标题同时给出该目标 UE 无方向约束的 MMSE-IRC SINR。
+
+```matlab
+% 内置方向图，复现 10° 下倾、288 RB、最多三轮扫描的 K=1 和 K=10 快照。
+run_fim_angular_sinr()
+
+% 使用自己的方向图 TXT，四种阵列会重新优化。
+run_fim_angular_sinr("D:\patterns\my_pattern.txt")
+
+% 单用户快速试跑。
+run_fim_angular_sinr("D:\patterns\my_pattern.txt",KValues=1,NumRB=24,Sweeps=1)
+```
+
+TXT 格式见本页的「方向图 TXT」。默认将方向图主峰对齐至阵元本体 +y。已经标定坐标的文件可设置 `PatternAlignment="manual"`，并通过 `PatternNativeToBody` 传入 3×3 旋转矩阵。若要保留 TXT 的背瓣，传入 `FrontOnly=false`。多用户图固定比较按 Fixed 的宽带等效 SINR 从低到高排序的第 5 个 UE，其余 9 个 UE 为同频干扰。
+
+默认扫描全局方位 −134° 至 134°、俯仰 −40° 至 34°，步长均为 2°。峰值按这个网格计算。PNG、数值 MAT 和 CSV 默认写入 `results/angular_sinr/scan_时间戳/`。也可用 `OutputDir` 指定输出的上级目录。运行只需要基础 MATLAB R2024b 和工程源码及方向图文件。
+
 ## 5. 文件结构
 
 核心MATLAB文件：
@@ -153,6 +172,7 @@ SYS/MLang等兼容环境的图形导出行为可能与标准MATLAB不同；首�
 |---|---|
 | `run_24rb_four_array_comparison.m` | 24 RB四方案主入口 |
 | `run_fim_comparison.m` | 主入口别名 |
+| `run_fim_angular_sinr.m` | 自定义方向图及四方案角域 SINR 仿真图 |
 | `configFIMSimulation.m` | 通用配置默认值 |
 | `prepareFIMConfig.m` | 参数、资源、CP、功率和几何配置检查 |
 | `runFIMStudy.m` | K扫描、MC分批、断点续算和统计汇总 |
